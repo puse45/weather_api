@@ -28,8 +28,8 @@ repos:
         name: pytest-check
         stages: [ commit ]
         types: [ python ]
-        entry: pytest -vv --cov --cov-fail-under=70
+        entry: pytest -vv --cov --cov-fail-under=70 --cov-report=term-missing
         language: system
         pass_filenames: false
         always_run: true
-        files: /.*\tests.py$
+        files: .*\_tests.py$

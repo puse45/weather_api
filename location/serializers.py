@@ -9,15 +9,16 @@ class LocationSerializer(serializers.Serializer):
         fields = ("days",)
 
     def create(self, validated_data):
-        return super().create(validated_data)
+        pass
 
     def update(self, instance, validated_data):
-        return super().update(instance, validated_data)
+        pass
 
     def validate(self, attrs):
         """
-        :param attrs:
-        :return: attrs
+        Validate
+        @param attrs:
+        @return: attrs
         """
         days = attrs.get("days", None)
         if days > 10:

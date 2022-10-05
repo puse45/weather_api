@@ -686,9 +686,9 @@ __pycache__/
 
 # Distribution / packaging
 .Python
-build/
+#build/
 develop-eggs/
-dist/
+#dist/
 downloads/
 eggs/
 .eggs/
@@ -814,3 +814,4 @@ dmypy.json
 
 # Cython debug symbols
 cython_debug/
+.DS_Store

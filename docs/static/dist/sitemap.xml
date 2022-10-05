@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"><url>
+     <loc>http://localhost:8000/</loc>
+     <lastmod>2021-09-06</lastmod>
+     <changefreq>daily</changefreq>
+    </url><url>
+     <loc>http://localhost:8000/api-guide/1.introduction/</loc>
+     <lastmod>2021-09-06</lastmod>
+     <changefreq>daily</changefreq>
+    </url><url>
+     <loc>http://localhost:8000/api-guide/2.how_to_use/</loc>
+     <lastmod>2021-09-06</lastmod>
+     <changefreq>daily</changefreq>
+    </url><url>
+     <loc>http://localhost:8000/test/1.how_to_test/</loc>
+     <lastmod>2021-09-06</lastmod>
+     <changefreq>daily</changefreq>
+    </url><url>
+     <loc>http://localhost:8000/community/jobs/</loc>
+     <lastmod>2021-09-06</lastmod>
+     <changefreq>daily</changefreq>
+    </url>
+</urlset>

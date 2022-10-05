@@ -1,0 +1,44 @@
+version: '3'
+
+services:
+  backend:
+    build: .
+    image: &backend backend
+    restart: unless-stopped
+    container_name: backend_server
+    volumes:
+      - .:/backend
+      - static_volume:/backend/static
+      - media_volume:/backend/media
+    command: ./wait-for-it.sh database:5432 -- gunicorn project.wsgi:application --workers 16 --timeout 150 --worker-class gevent --bind 0.0.0.0:8000
+    networks:
+      - wp_network
+    env_file:
+      - ./.env.prod
+
+  nginx_wp:
+    image: nginx:latest
+    restart: unless-stopped
+    container_name: nginx_wp
+    ports:
+      - 443:443
+      - 80:80
+    volumes:
+      - ./config/nginx/conf.d/:/etc/nginx/conf.d/
+      - ./config/nginx/ssl/cert.crt:/etc/nginx/cert.crt
+      - ./config/nginx/ssl/cert.key:/etc/nginx/cert.key
+      - ./config/nginx/ssl/cert.pem:/etc/nginx/cert.pem
+      - static_volume:/backend/static
+      - media_volume:/backend/media
+    depends_on:
+      - backend
+    networks:
+      - wp_network
+
+networks:
+  wp_network:
+    driver: bridge
+
+volumes:
+  static_volume:
+  media_volume:

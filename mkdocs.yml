@@ -1,0 +1,26 @@
+site_name: Weather API Backend 1.0
+site_url: http://localhost:8000
+site_description: API Documentation
+
+repo_url: 'https://github.com/puse45/weather_tempureture_api.git'
+site_dir: 'docs/static/dist'
+docs_dir: 'docs/static/build'
+
+theme:
+      name: 'material'
+      palette:
+            primary: 'blue'
+            accent: 'orange'
+
+markdown_extensions:
+      - toc:
+            anchorlink: True
+
+nav:
+      - Home: 'index.md'
+      - API Guide:
+            - 'Introduction': 'api-guide/1.introduction.md'
+            - 'How to use the API': 'api-guide/2.how_to_use.md'
+      - Test Guide:
+            - 'How to test the API': 'test/1.how_to_test.md'
+      - Jobs: 'community/jobs.md'

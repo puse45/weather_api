@@ -1,0 +1,85 @@
+{% load i18n %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ settings.SITE_NAME }} - Playground</title>
+    <link rel="apple-touch-icon" sizes="57x57" href="{% static 'favicon/apple-icon-57x57.png' %}">
+    <link rel="apple-touch-icon" sizes="60x60" href="{% static 'favicon/apple-icon-60x60.png' %}">
+    <link rel="apple-touch-icon" sizes="72x72" href="{% static 'favicon/apple-icon-72x72.png' %}">
+    <link rel="apple-touch-icon" sizes="76x76" href="{% static 'favicon/apple-icon-76x76.png' %}">
+    <link rel="apple-touch-icon" sizes="114x114" href="{% static 'favicon/apple-icon-114x114.png' %}">
+    <link rel="apple-touch-icon" sizes="120x120" href="{% static 'favicon/apple-icon-120x120.png' %}">
+    <link rel="apple-touch-icon" sizes="144x144" href="{% static 'favicon/apple-icon-144x144.png' %}">
+    <link rel="apple-touch-icon" sizes="152x152" href="{% static 'favicon/apple-icon-152x152.png' %}">
+    <link rel="apple-touch-icon" sizes="180x180" href="{% static 'favicon/apple-icon-180x180.png' %}">
+    <link rel="icon" type="image/png" sizes="192x192"  href="{% static 'favicon/android-icon-192x192.png' %}">
+    <link rel="icon" type="image/png" sizes="32x32" href="{% static 'favicon/favicon-32x32.png' %}">
+    <link rel="icon" type="image/png" sizes="96x96" href="{% static 'favicon/favicon-96x96.png' %}">
+    <link rel="icon" type="image/png" sizes="16x16" href="{% static 'favicon/favicon-16x16.png' %}">
+    <link rel="manifest" href="{% static 'favicon/manifest.json' %}">
+    <meta name="msapplication-TileColor" content="#ffffff">
+    <meta name="msapplication-TileImage" content="/ms-icon-144x144.png">
+    <meta name="theme-color" content="#FFFF00">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,700|Source+Code+Pro:300,600|Titillium+Web:400,600,700" rel="stylesheet">
+    <link href="{% static 'rest_framework_swagger/bundles/vendors.bundle.css' %}" rel="stylesheet" type="text/css">
+    <link href="{% static 'rest_framework_swagger/bundles/app.bundle.css' %}" rel="stylesheet" type="text/css">
+    {% block extra_styles %}
+        <style>
+            .swagger-ui .topbar { background-color: #3f51b5; color: black; }
+        </style>
+    {% endblock %}
+</head>
+<body>
+    <div class="swagger-ui">
+        <div class="topbar">
+            <div class="wrapper">
+                <div class="topbar-wrapper">
+                    <a href="#" class="link">
+                        <img src="{% static 'logo.png' %}" alt="playground" width="60" height="60">
+                        <span>Play Ground</span>
+                    </a>
+                    <div class="download-url-wrapper">
+                        {% if USE_SESSION_AUTH %}
+                            {% if request.user.is_authenticated %}
+                                <a class="download-url-button button"
+                                   href="{{ LOGOUT_URL }}?next={{ request.path }}">{% trans "Logout" %}</a>
+                            {% else %}
+                                <a class="download-url-button button"
+                                   href="{{ LOGIN_URL }}?next={{ request.path }}">{% trans "Session Login" %}</a>
+                            {% endif %}
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% if USE_SESSION_AUTH %}
+            <div class="user-context wrapper">
+                {% block user_context_message %}
+                    {% if request.user.is_authenticated %}
+                        {% trans "You are logged in as: " %}<strong>{{ request.user }}</strong>
+                    {% else %}
+                        {% trans "Viewing as an anonymous user" %}
+                    {% endif %}
+                {% endblock %}
+            </div>
+        {% endif %}
+    </div>
+    <div id="rest-swagger-ui"></div>
+    {% csrf_token %}
+    <footer class="swagger-ui">
+        <div class="wrapper">
+            Main Site - <a href="{{ settings.SERVER_HOST }}" target="_new">Home</a>
+        </div>
+    </footer>
+    <script>
+        window.drsSettings = {{ drs_settings|safe }};
+        window.drsSpec = {{ spec|safe }};
+    </script>
+    <script src="{% static 'rest_framework_swagger/bundles/vendors.bundle.js' %}"></script>
+    <script src="{% static 'rest_framework_swagger/bundles/app.bundle.js' %}"></script>
+    {% block extra_scripts %}
+    {% endblock %}
+    </body>
+</html>

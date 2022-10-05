@@ -81,7 +81,7 @@ cp env.example .env
 ### Run Test
 To run unit test.
 ```shell
-$ ./manage.py test
+$ ./manage.py pytest
 ```
 
 ### API Documentation

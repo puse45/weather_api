@@ -18,6 +18,7 @@ from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import include, path
 
+from project.healthz import HealthCheckView
 from project.views import about, index, releases
 
 app_name = "settings"
@@ -29,6 +30,7 @@ urlpatterns = [
     path("admin/", admin.site.urls),
     path("api/", include(("api.urls", "api"), namespace="api")),
     path("docs/", include("docs.urls"), name="documentation"),
+    path("healthz/", HealthCheckView.as_view(), name="health-check"),
 ]
 if settings.DEBUG:
     urlpatterns += static(

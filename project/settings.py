@@ -35,8 +35,15 @@ if DEBUG:
 
 else:
     ALLOWED_HOSTS = config(
-        "ALLOWED_HOSTS", cast=lambda v: [s.strip() for s in v.split(",")]
+        "ALLOWED_HOSTS",
+        cast=lambda v: [s.strip() for s in v.split(",")],
     )
+    ALLOWED_HOSTS += [
+        "yourdomain.com",
+        "django-service",  # Kubernetes service name
+        "django-service.default",  # Fully qualified service name
+        "django-service.default.svc.cluster.local",  # Full cluster DNS
+    ]
 
 # Application definition
 
@@ -243,3 +250,8 @@ DOCS_STATIC_NAMESPACE = os.path.basename(DOCS_DIR)
 
 CORS_ORIGIN_ALLOW_ALL = True
 CORS_ALLOW_CREDENTIALS = True
+
+SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
+SECURE_SSL_REDIRECT = config("DJANGO_SECURE_SSL_REDIRECT", "True") == "True"
+SESSION_COOKIE_SECURE = True
+CSRF_COOKIE_SECURE = True
